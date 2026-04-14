@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "LICC - Live Chess Companion",
+  "version": "1.0",
+  "description": "Acompanhe partidas de xadrez ao vivo.",
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png",
+    "default_title": "LICC"
+  },
+
+  "permissions": ["storage"]
+}

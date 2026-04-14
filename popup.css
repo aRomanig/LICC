@@ -1,0 +1,81 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 300px;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #141414;
+  color: #e6e6e6;
+}
+
+/* LISTA */
+
+#gamesList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 6px;
+}
+
+/* CARD */
+
+.game {
+  display: flex;
+  background: #2b2b2b;
+  border: 1px solid #3a3a3a;
+}
+
+/* BARRA DE AVALIAÇÃO */
+
+.eval-bar {
+  width: 8px;
+  background: #111; /* fundo da barra (pretas) */
+  position: relative;
+  flex-shrink: 0;
+}
+
+.eval-fill {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: #f5f5f5; /* brancas */
+  transition: height 0.25s ease;
+}
+
+/* INFO DO JOGO */
+
+.game-info {
+  flex: 1;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* LINHA DE JOGADOR */
+
+.player {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* NOME */
+
+.name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #e6e6e6;
+}
+
+/* RELÓGIO */
+
+.clock {
+  font-size: 12px;
+  font-family: monospace;
+  color: #b0b0b0;
+}
