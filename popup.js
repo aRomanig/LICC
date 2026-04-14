@@ -1,9 +1,24 @@
 const gamesList = document.getElementById('gamesList')
 
 async function fetchAPI() {
-    const res = await fetch('https://lichess.org/api/broadcast/fide-candidates-2026-open/round-13/rFG1W5Tp')
+    const res = await fetch('https://lichess.org/api/broadcast/fide-candidates-2026-women/round-13/o7DgltDn')
     const data = await res.json()
     return data.games
+}
+
+async function fetchEval(fen) {
+    const res = await fetch(`https://lichess.org/api/cloud-eval?fen=${encodeURIComponent(fen)}`)
+    const data = await res.json()
+
+    if (!data.pvs || data.pvs.length === 0) return null
+
+    const evalData = data.pvs[0]
+
+    if (evalData.mate) {
+        return evalData.mate > 0 ? 5 : -5
+    }
+
+    return evalData.cp / 100
 }
 
 function parseTime(ms) {
@@ -37,15 +52,33 @@ function renderGames(games) {
             </div>
             <div class="game-info">
                 <div class="player">
-                    ♚ ${black.name} (${parseTime(black.clock)})
+                    ♔ ${black.name} (${parseTime(black.clock)})
                 </div>
                 <div class="player">
-                    ♔ ${white.name} (${parseTime(white.clock)})
+                    ♚ ${white.name} (${parseTime(white.clock)})
                 </div>
             </div>
+
+            <div class="eval-text">---</div>
         `
         const fill = card.querySelector('.eval-fill')
-        fill.style.height = evalToPercent('3.0') + '%' 
+        const evalText = card.querySelector('.eval-text')
+        
+        fill.style.height = evalToPercent('0') + '%' 
+
+        fetchEval(game.fen).then(score => {
+            if (score !== null) {
+                fill.style.height = evalToPercent(score) + '%'
+
+                if (Math.abs(score) === 5) {
+                    evalText.textContent = score > 0 ? 'M' : '-M'
+                } else {
+                    const formatted = score > 0 ? `+${score.toFixed(1)}` : score.toFixed(1)
+                    evalText.textContent = formatted
+                }
+            }
+        })
+
         gamesList.appendChild(card)
     }
 }

@@ -79,3 +79,12 @@ body {
   font-family: monospace;
   color: #b0b0b0;
 }
+
+.eval-text {
+  font-size: 12px;
+  font-family: monospace;
+  color: #ccc;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+}
