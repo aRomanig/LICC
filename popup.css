@@ -38,7 +38,7 @@ body {
 /* CARD */
 .game {
   display: flex;
-  background: #262421;
+  background: #1e1c1a;
   border-radius: 3px;
   overflow: hidden;
   border: 1px solid #3c3934;
@@ -52,7 +52,7 @@ body {
 /* EVALUATION BAR */
 .eval-bar {
   width: 10px;
-  background: #403d39; /* Black advantage color */
+  background: #4a4742; /* Black advantage color */
   position: relative;
   flex-shrink: 0;
 }
@@ -61,7 +61,7 @@ body {
   position: absolute;
   bottom: 0;
   width: 100%;
-  background: #ffffff; /* White advantage color */
+  background: #bdbdbd; /* White advantage color */
   transition: height 0.4s ease;
 }
 
