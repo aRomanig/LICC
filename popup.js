@@ -33,7 +33,7 @@ function evalToPercent(score) {
     return 50 + (clamped / 5) * 50
 }
 
-function renderGames(games) {
+function renderGames(games, tournament) {
     gamesList.innerHTML = ''
     games.forEach(game => {
         if (!game.players) return
@@ -86,6 +86,16 @@ function renderGames(games) {
                 }
             })
         }
+
+        card.addEventListener('click', () => {
+            chrome.windows.create({
+                url: `https://lichess.org/broadcast/${tournament.tour}/${tournament.round}/${tournament.id}/${game.id}#last`,
+                type: 'popup',
+                width: 640,
+                height: 640
+        })
+    })
+
         gamesList.appendChild(card)
     })
 }
@@ -141,7 +151,7 @@ async function init() {
 
         if (tournamentToLoad) {
             const games = await fetchAPI(tournamentToLoad)
-            renderGames(games)
+            renderGames(games, tournamentToLoad)
         }
     })
 
@@ -150,7 +160,7 @@ async function init() {
         const selectedData = JSON.parse(e.target.value)
         chrome.storage.local.set({ lastTournament: selectedData })
         const games = await fetchAPI(selectedData)
-        renderGames(games)
+        renderGames(games, selectedData)
     })
 }
 
