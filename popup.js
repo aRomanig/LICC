@@ -24,17 +24,7 @@ async function fetchEval(fen) {
 function parseTime(clockValue) {
     if (clockValue === undefined || clockValue === null) return "N/A"
 
-    let totalSeconds
-
-    if (clockValue > 100000) { 
-        if (clockValue > 1000000) {
-            totalSeconds = Math.floor(clockValue / 1000)
-        } else {
-            totalSeconds = Math.floor(clockValue / 100)
-        }
-    } else {
-        totalSeconds = clockValue
-    }
+    let totalSeconds = clockValue / 100
 
     const hours = Math.floor(totalSeconds / 3600)
     const minutes = Math.floor((totalSeconds % 3600) / 60)
@@ -107,7 +97,13 @@ function renderGames(games) {
         const evalText = card.querySelector('.eval-text')
         
         if (isFinished) {
-            fill.style.height = '50%'
+            if (whiteResult === '1') {
+                fill.style.height = '100%'
+            } else if (blackResult === '1') {
+                fill.style.height = '0%s'
+            } else [
+                fill.style.height = '50%'
+            ]
             evalText.textContent = "FIN"
         } else {
             fill.style.height = '50%'
