@@ -1,7 +1,7 @@
 const gamesList = document.getElementById('gamesList')
 
 async function fetchAPI() {
-    const res = await fetch('https://lichess.org/api/broadcast/fide-candidates-2026-women/round-13/o7DgltDn')
+    const res = await fetch('https://lichess.org/api/broadcast/fide-candidates-2026-open/round-13/o7DgltDn')
     const data = await res.json()
     return data.games
 }
@@ -83,7 +83,37 @@ function renderGames(games) {
     }
 }
 
+async function fetchBroadcasts() {
+    const res = await fetch('https://lichess.org/api/broadcast/top?page=1')
+    const data = await res.json()
+    return data.active
+}
+
+async function renderBroadcasts() {
+    const broadcasts = await fetchBroadcasts()
+    const select = document.getElementById('tournamentSelect')
+
+    for (let i = 0; i < broadcasts.length; i++) {
+        const b = broadcasts[i]
+
+        if (!b.round) continue
+
+        const option = document.createElement('option')
+
+        option.value = JSON.stringify({
+            tour: b.tour.slug,
+            round: b.round.slug,
+            id: b.round.id
+        })
+
+        option.textContent = b.tour.name
+
+        select.appendChild(option)
+    }
+}
+
 async function init() {
+    renderBroadcasts()
     const games = await fetchAPI()
     renderGames(games)
 }
