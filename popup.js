@@ -21,12 +21,38 @@ async function fetchEval(fen) {
     return evalData.cp / 100
 }
 
-function parseTime(ms) {
-    const totalSeconds = Math.floor(ms/1000)
-    const minutes = Math.floor(totalSeconds/60)
-    const seconds = totalSeconds % 60
+function parseTime(clockValue) {
+    if (clockValue === undefined || clockValue === null) return "N/A";
 
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`
+    let totalSeconds;
+
+    // Check magnitude of the number
+    if (clockValue > 100000) { 
+        // Likely Centiseconds (common in DGT relays) 
+        // or Milliseconds. Let's try Centiseconds first.
+        // 1 hour 50 mins in CS is 660,000. 
+        // 1 hour 50 mins in MS is 6,600,000.
+        
+        if (clockValue > 1000000) {
+            totalSeconds = Math.floor(clockValue / 1000); // It's Milliseconds
+        } else {
+            totalSeconds = Math.floor(clockValue / 100);  // It's Centiseconds
+        }
+    } else {
+        // It's already in seconds
+        totalSeconds = clockValue;
+    }
+
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    const pad = (num) => num.toString().padStart(2, '0');
+
+    if (hours > 0) {
+        return `${hours}:${pad(minutes)}:${pad(seconds)}`;
+    }
+    return `${minutes}:${pad(seconds)}`;
 }
 
 function evalToPercent(score) {
