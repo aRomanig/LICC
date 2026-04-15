@@ -10,5 +10,5 @@
     "default_title": "LICC"
   },
 
-  "permissions": ["storage"]
+  "permissions": ["storage", "https://lichess.org/*"]
 }

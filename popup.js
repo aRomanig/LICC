@@ -46,7 +46,7 @@ function renderGames(games) {
         if (isFinished) {
             if (rawStatus === "1-0") whiteResult = "1"
             else if (rawStatus === "0-1") blackResult = "1"
-            else if (rawStatus === "1/2-1/2" || rawStatus === "1/2") {
+            else if (rawStatus === "1/2-1/2" || rawStatus === "1/2" || rawStatus === "½-½") {
                 whiteResult = "½"; blackResult = "½"
             } else { whiteResult = rawStatus }
         }
