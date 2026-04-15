@@ -1,3 +1,4 @@
+/* RESET & BASE */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,40 +6,32 @@
 }
 
 body {
-  width: 320px; /* Slightly wider for better text breathing room */
+  width: 320px;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  background: #161512; /* Lichess-style dark background */
+  background: #161512; /* Lichess dark background */
   color: #bababa;
   padding-bottom: 8px;
 }
 
-/* CUSTOM SELECT CONTAINER */
-#tournamentSelect {
+/* SELECTORS */
+#tournamentSelect, #roundSelect {
   width: calc(100% - 16px);
-  margin: 12px 8px;
+  margin: 8px;
   padding: 10px 12px;
   background: #262421;
   color: #fff;
   border: 1px solid #3c3934;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
+  border-radius: 4px;
+  font-size: 13px;
   cursor: pointer;
   outline: none;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-
-#tournamentSelect:hover {
-  background: #2d2b28;
-  border-color: #4d4a44;
 }
 
 /* LISTA */
 #gamesList {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   padding: 0 8px;
 }
 
@@ -46,80 +39,94 @@ body {
 .game {
   display: flex;
   background: #262421;
-  border-radius: 4px;
-  overflow: hidden; /* Clips the eval bar corners */
+  border-radius: 3px;
+  overflow: hidden;
   border: 1px solid #3c3934;
-  transition: transform 0.1s ease;
 }
 
 .game:hover {
-  border-color: #555;
   background: #2d2b28;
+  border-color: #4d4a44;
 }
 
-/* EVALUATION BAR - High Contrast */
+/* EVALUATION BAR */
 .eval-bar {
-  width: 12px;
-  background: #403d39; /* Darker grey for Black's advantage */
+  width: 10px;
+  background: #403d39; /* Black advantage color */
   position: relative;
   flex-shrink: 0;
-  border-right: 1px solid rgba(0,0,0,0.2);
 }
 
 .eval-fill {
   position: absolute;
   bottom: 0;
   width: 100%;
-  background: #ffffff; /* Crisp white for White's advantage */
-  transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #ffffff; /* White advantage color */
+  transition: height 0.4s ease;
 }
 
-/* INFO DO JOGO */
+/* INFO AREA */
 .game-info {
   flex: 1;
-  padding: 12px;
+  padding: 8px 12px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
+  min-width: 0;
 }
 
-.player {
+.player-line {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+}
+
+.name {
   font-size: 13px;
-  color: #eee;
+  font-weight: 500;
+  color: #bababa; /* Lichess default text color */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Styling for the Chess pieces/icons in the text */
-.player span {
-  font-weight: 600;
-}
-
-/* TIME/CLOCK */
-.player:after {
-  content: attr(data-time); /* If you want to use attributes later */
+/* CLOCK & SCORE AREA */
+.clock-area {
   font-family: 'Courier New', monospace;
   font-size: 12px;
   color: #999;
+  flex-shrink: 0;
+  text-align: right;
+  min-width: 45px;
 }
 
-/* EVAL TEXT SECTION */
+/* SCORE BADGE (Replaces clock on game end) */
+.score {
+  font-weight: 800;
+  color: #d5ae27; /* Lichess Gold */
+  font-size: 14px;
+}
+
+/* EVAL TEXT */
 .eval-text {
-  min-width: 45px;
-  font-size: 12px;
+  min-width: 40px;
+  font-size: 11px;
   font-weight: 700;
   font-family: monospace;
-  color: #fff;
-  background: rgba(0,0,0,0.2);
+  color: #888;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-left: 1px solid #3c3934;
+  background: rgba(0,0,0,0.15);
 }
 
-/* MATE SCORE HIGHLIGHT */
-.eval-text:contains('M') {
-  color: #ffd700;
+/* FINISHED STATE - No dimming for names */
+.game.finished {
+  background: #1e1c1a;
+}
+
+.game.finished .eval-text {
+  color: #666;
 }

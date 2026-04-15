@@ -63,50 +63,73 @@ function evalToPercent(score) {
 }
 
 function renderGames(games) {
-    gamesList.innerHTML = ''
+    const gamesList = document.getElementById('gamesList');
+    gamesList.innerHTML = '';
 
-    for (let i = 0; i < games.length; i++) {
-        const game = games[i]
-        const white = game.players[0]
-        const black = game.players[1]
+    games.forEach(game => {
+        if (!game.players) return;
 
-        const card = document.createElement('div')
-        card.classList.add('game')
+        const white = game.players[0];
+        const black = game.players[1];
+
+        const rawStatus = game.status || "";
+        const isFinished = rawStatus !== "*" && rawStatus !== "";
+        
+        // Define result display per player
+        let whiteResult = "";
+        let blackResult = "";
+        
+        if (isFinished) {
+            if (rawStatus === "1-0") whiteResult = "1";
+            else if (rawStatus === "0-1") blackResult = "1";
+            else if (rawStatus === "1/2-1/2" || rawStatus === "1/2") {
+                whiteResult = "½";
+                blackResult = "½";
+            } else {
+                // Fallback for other score formats
+                whiteResult = rawStatus; 
+            }
+        }
+
+        const card = document.createElement('div');
+        card.classList.add('game');
+        if (isFinished) card.classList.add('finished');
+
         card.innerHTML = `
             <div class="eval-bar">
                 <div class="eval-fill"></div>
             </div>
             <div class="game-info">
-                <div class="player">
-                    ♔ ${black.name} (${parseTime(black.clock)})
+                <div class="player-line">
+                    <span class="name">♔ ${black.name || "Black"}</span>
+                    <span class="clock-area">${isFinished ? `<span class="score">${blackResult}</span>` : parseTime(black.clock)}</span>
                 </div>
-                <div class="player">
-                    ♚ ${white.name} (${parseTime(white.clock)})
+                <div class="player-line">
+                    <span class="name">♚ ${white.name || "White"}</span>
+                    <span class="clock-area">${isFinished ? `<span class="score">${whiteResult}</span>` : parseTime(white.clock)}</span>
                 </div>
             </div>
-
             <div class="eval-text">---</div>
-        `
-        const fill = card.querySelector('.eval-fill')
-        const evalText = card.querySelector('.eval-text')
+        `;
+
+        const fill = card.querySelector('.eval-fill');
+        const evalText = card.querySelector('.eval-text');
         
-        fill.style.height = evalToPercent('0') + '%' 
-
-        fetchEval(game.fen).then(score => {
-            if (score !== null) {
-                fill.style.height = evalToPercent(score) + '%'
-
-                if (Math.abs(score) === 5) {
-                    evalText.textContent = score > 0 ? 'M' : '-M'
-                } else {
-                    const formatted = score > 0 ? `+${score.toFixed(1)}` : score.toFixed(1)
-                    evalText.textContent = formatted
+        if (isFinished) {
+            fill.style.height = '50%';
+            evalText.textContent = "FIN";
+        } else {
+            fill.style.height = '50%'; 
+            fetchEval(game.fen).then(score => {
+                if (score !== null) {
+                    fill.style.height = evalToPercent(score) + '%';
+                    evalText.textContent = score > 0 ? `+${score.toFixed(1)}` : score.toFixed(1);
                 }
-            }
-        })
+            });
+        }
 
-        gamesList.appendChild(card)
-    }
+        gamesList.appendChild(card);
+    });
 }
 
 async function fetchBroadcasts() {
