@@ -1,7 +1,7 @@
 const gamesList = document.getElementById('gamesList')
 
-async function fetchAPI() {
-    const res = await fetch('https://lichess.org/api/broadcast/fide-candidates-2026-open/round-13/o7DgltDn')
+async function fetchAPI({tour, round, id}) {
+    const res = await fetch(`https://lichess.org/api/broadcast/${tour}/${round}/${id}`)
     const data = await res.json()
     return data.games
 }
@@ -92,6 +92,7 @@ async function fetchBroadcasts() {
 async function renderBroadcasts() {
     const broadcasts = await fetchBroadcasts()
     const select = document.getElementById('tournamentSelect')
+    let firstBroadcast = null
 
     for (let i = 0; i < broadcasts.length; i++) {
         const b = broadcasts[i]
@@ -99,23 +100,32 @@ async function renderBroadcasts() {
         if (!b.round) continue
 
         const option = document.createElement('option')
-
-        option.value = JSON.stringify({
+        const broadcastData =  {
             tour: b.tour.slug,
             round: b.round.slug,
             id: b.round.id
-        })
-
+        }
+        if (!firstBroadcast) firstBroadcast = broadcastData
+        option.value = JSON.stringify(broadcastData)
         option.textContent = b.tour.name
-
         select.appendChild(option)
     }
+    return firstBroadcast
 }
 
 async function init() {
-    renderBroadcasts()
-    const games = await fetchAPI()
-    renderGames(games)
+    const firstTournament = await renderBroadcasts()
+    if (firstTournament) {
+        const games = await fetchAPI(firstTournament)
+        renderGames(games)
+    }
+    const select = document.getElementById('tournamentSelect');
+
+    select.addEventListener('change', async (e) => {
+        const selectedData = JSON.parse(e.target.value);
+        const games = await fetchAPI(selectedData);
+        renderGames(games);
+    });
 }
 
 init()

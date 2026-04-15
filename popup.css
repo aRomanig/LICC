@@ -5,86 +5,121 @@
 }
 
 body {
-  width: 300px;
-  font-family: system-ui, -apple-system, sans-serif;
-  background: #141414;
-  color: #e6e6e6;
+  width: 320px; /* Slightly wider for better text breathing room */
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #161512; /* Lichess-style dark background */
+  color: #bababa;
+  padding-bottom: 8px;
+}
+
+/* CUSTOM SELECT CONTAINER */
+#tournamentSelect {
+  width: calc(100% - 16px);
+  margin: 12px 8px;
+  padding: 10px 12px;
+  background: #262421;
+  color: #fff;
+  border: 1px solid #3c3934;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+#tournamentSelect:hover {
+  background: #2d2b28;
+  border-color: #4d4a44;
 }
 
 /* LISTA */
-
 #gamesList {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 6px;
+  gap: 10px;
+  padding: 0 8px;
 }
 
 /* CARD */
-
 .game {
   display: flex;
-  background: #2b2b2b;
-  border: 1px solid #3a3a3a;
+  background: #262421;
+  border-radius: 4px;
+  overflow: hidden; /* Clips the eval bar corners */
+  border: 1px solid #3c3934;
+  transition: transform 0.1s ease;
 }
 
-/* BARRA DE AVALIAÇÃO */
+.game:hover {
+  border-color: #555;
+  background: #2d2b28;
+}
 
+/* EVALUATION BAR - High Contrast */
 .eval-bar {
-  width: 8px;
-  background: #111; /* fundo da barra (pretas) */
+  width: 12px;
+  background: #403d39; /* Darker grey for Black's advantage */
   position: relative;
   flex-shrink: 0;
+  border-right: 1px solid rgba(0,0,0,0.2);
 }
 
 .eval-fill {
   position: absolute;
   bottom: 0;
   width: 100%;
-  background: #f5f5f5; /* brancas */
-  transition: height 0.25s ease;
+  background: #ffffff; /* Crisp white for White's advantage */
+  transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* INFO DO JOGO */
-
 .game-info {
   flex: 1;
-  padding: 10px 12px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
 }
-
-/* LINHA DE JOGADOR */
 
 .player {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-/* NOME */
-
-.name {
   font-size: 13px;
-  font-weight: 500;
-  color: #e6e6e6;
+  color: #eee;
 }
 
-/* RELÓGIO */
+/* Styling for the Chess pieces/icons in the text */
+.player span {
+  font-weight: 600;
+}
 
-.clock {
+/* TIME/CLOCK */
+.player:after {
+  content: attr(data-time); /* If you want to use attributes later */
+  font-family: 'Courier New', monospace;
   font-size: 12px;
-  font-family: monospace;
-  color: #b0b0b0;
+  color: #999;
 }
 
+/* EVAL TEXT SECTION */
 .eval-text {
+  min-width: 45px;
   font-size: 12px;
+  font-weight: 700;
   font-family: monospace;
-  color: #ccc;
+  color: #fff;
+  background: rgba(0,0,0,0.2);
   display: flex;
+  justify-content: center;
   align-items: center;
-  padding: 0 6px;
+  border-left: 1px solid #3c3934;
+}
+
+/* MATE SCORE HIGHLIGHT */
+.eval-text:contains('M') {
+  color: #ffd700;
 }
