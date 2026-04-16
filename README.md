@@ -1,4 +1,4 @@
-# LICC - Live Chess Companion
+# LiCC - Live Chess Companion
 ---
 
 A professional, lightweight browser extension designed to track live chess broadcasts from Lichess.org. This extension provides real-time evaluation bars, player clocks, and game results in a compact, dark-themed popup.
