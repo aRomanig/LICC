@@ -10,5 +10,16 @@
     "default_title": "LICC"
   },
 
-  "permissions": ["storage", "https://lichess.org/*"]
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "licc@local",
+      "data_collection_permissions": {
+        "required": ["none"],
+        "optional": []
+      }
+    }
+  },
+
+  "host_permissions": ["https://lichess.org/*"],
+  "permissions": ["storage"]
 }

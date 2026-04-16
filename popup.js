@@ -35,6 +35,10 @@ function evalToPercent(score) {
 
 function renderGames(games, tournament) {
     gamesList.innerHTML = ''
+    if (!games || games.length === 0) {
+        gamesList.textContent = 'No games to render for this round yet!'
+        return
+    }
     games.forEach(game => {
         if (!game.players) return
         const white = game.players[0]
