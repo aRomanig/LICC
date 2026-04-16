@@ -36,7 +36,13 @@ function evalToPercent(score) {
 function renderGames(games, tournament) {
     gamesList.innerHTML = ''
     if (!games || games.length === 0) {
-        gamesList.textContent = 'No games to render for this round yet!'
+        gamesList.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-icon">♟</div>
+                <div class="empty-title">No games yet</div>
+                <div class="empty-subtitle">This round hasn't started or games are not available.</div>
+            </div>
+        `
         return
     }
     games.forEach(game => {
