@@ -41,6 +41,7 @@ body {
 }
 
 .game:hover {
+  cursor: pointer;
   background: #2d2b28;
   border-color: #4d4a44;
 }
