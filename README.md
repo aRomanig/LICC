@@ -11,6 +11,8 @@ A professional, lightweight browser extension designed to track live chess broad
 - **Persistent Selection:** Remembers your last selected tournament even after closing the browser or popup.
 - **Live Result Badges:** Displays game scores (1-0, 0-1, ½-½) directly in the player list once games conclude.
 
+**_IMPORTANT NOTE:_** This extension relies on the Lichess Broadcast API. It can, at this time, only show rounds set as _ongoing_ by Lichess. As such, you currently _cannot_ view previous rounds or rounds that are still not loaded.
+
 ## Installation
 
 ### For Chrome / Edge
