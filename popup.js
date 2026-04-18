@@ -170,6 +170,16 @@ async function init() {
     await renderBroadcasts()
     const select = document.getElementById('tournamentSelect')
     const roundSelect = document.getElementById('roundSelect')
+    let refreshInterval = null
+
+    function startAutoRefresh() {
+        if (refreshInterval) clearInterval(refreshInterval)
+        refreshInterval = setInterval(async () => {
+            const finalData = { ...JSON.parse(select.value), ...JSON.parse(roundSelect.value) }
+            const games = await fetchAPI(finalData)
+            renderGames(games, finalData)
+        }, 10000)
+    }
 
     chrome.storage.local.get(['lastTournament'], async (result) => {
         let tournamentToLoad = null
@@ -200,6 +210,7 @@ async function init() {
 
             const games = await fetchAPI(finalData)
             renderGames(games, finalData)
+            startAutoRefresh()
         }
     })
 
@@ -210,12 +221,14 @@ async function init() {
         const finalData = { ...JSON.parse(select.value), ...JSON.parse(roundSelect.value) }
         const games = await fetchAPI(finalData)
         renderGames(games, finalData)
+        startAutoRefresh()
     })
 
     roundSelect.addEventListener('change', async () => {
         const finalData = { ...JSON.parse(select.value), ...JSON.parse(roundSelect.value) }
         const games = await fetchAPI(finalData)
         renderGames(games, finalData)
+        startAutoRefresh()
     })
 }
 
