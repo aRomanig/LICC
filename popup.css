@@ -16,7 +16,7 @@ body {
   display: flex;
   flex-direction: row;
   gap: 8px;
-  align-items: center; /* corrigido */
+  align-items: center;
   padding: 8px;
 }
 
@@ -33,13 +33,13 @@ body {
   max-width: 100%
 }
 
-/* 🔥 deixa o flex cuidar do tamanho */
+
 #tournamentSelect {
-  flex: 2; /* maior */
+  flex: 2; 
 }
 
 #roundSelect {
-  flex: 1; /* menor */
+  flex: 1; 
 }
 
 #gamesList {
