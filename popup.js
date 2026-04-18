@@ -103,8 +103,8 @@ function renderGames(games, tournament) {
                 type: 'popup',
                 width: 640,
                 height: 640
+            })
         })
-    })
 
         gamesList.appendChild(card)
     })
@@ -137,30 +137,33 @@ async function renderBroadcasts() {
     })
 }
 
-async function fetchRounds(tour) {
-    const res = await fetch(`https://lichess.org/api/broadcast/${tour}`)
+async function fetchRounds(tourId) {
+    const res = await fetch(`https://lichess.org/api/broadcast/${tourId}`)
     const data = await res.json()
     return data.rounds
 }
 
-async function renderRounds(tour) {
-    const rounds = await fetchRounds(tour)
+async function renderRounds(tourId) {
+    const rounds = await fetchRounds(tourId)
     const roundSelect = document.getElementById('roundSelect')
-    let activeIndex = 0
     roundSelect.innerHTML = ''
 
     rounds.forEach(r => {
         if (r) {
             const option = document.createElement('option')
-            const broadcastData = {
-                round: r.slug,
-                id: r.id
-            }
-            option.value = JSON.stringify(broadcastData)
+            option.value = JSON.stringify({ round: r.slug, id: r.id })
             option.textContent = r.name
             roundSelect.appendChild(option)
         }
     })
+
+    const ongoingIndex = rounds.findIndex(r => r.ongoing === true)
+    if (ongoingIndex !== -1) {
+        roundSelect.selectedIndex = ongoingIndex
+    } else {
+        const notFinishedIndex = rounds.findIndex(r => r.finished !== true)
+        roundSelect.selectedIndex = notFinishedIndex !== -1 ? notFinishedIndex : 0
+    }
 }
 
 async function init() {
@@ -188,41 +191,32 @@ async function init() {
         }
 
         if (tournamentToLoad) {
-        await renderRounds(tournamentToLoad.tour)
+            await renderRounds(tournamentToLoad.tourId)
 
-        roundSelect.selectedIndex = 0
+            const finalData = {
+                ...tournamentToLoad,
+                ...JSON.parse(roundSelect.value)
+            }
 
-        const finalData = {
-            ...tournamentToLoad,
-            ...JSON.parse(roundSelect.value)
+            const games = await fetchAPI(finalData)
+            renderGames(games, finalData)
         }
-
-        const games = await fetchAPI(finalData)
-        renderGames(games, finalData)
-    }
     })
 
-    // Listener para mudanças manuais
     select.addEventListener('change', async (e) => {
         const selectedData = JSON.parse(e.target.value)
         chrome.storage.local.set({ lastTournament: selectedData })
-        const rounds = await renderRounds(selectedData.tourId)
+        await renderRounds(selectedData.tourId)
         const finalData = { ...JSON.parse(select.value), ...JSON.parse(roundSelect.value) }
         const games = await fetchAPI(finalData)
         renderGames(games, finalData)
     })
+
     roundSelect.addEventListener('change', async () => {
-        const finalData = {
-            ...JSON.parse(select.value),
-            ...JSON.parse(roundSelect.value)
-        }
-
-        chrome.storage.local.set({ lastTournament: finalData })
-
+        const finalData = { ...JSON.parse(select.value), ...JSON.parse(roundSelect.value) }
         const games = await fetchAPI(finalData)
         renderGames(games, finalData)
     })
 }
-
 
 init()
