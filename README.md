@@ -30,7 +30,6 @@ A professional, lightweight browser extension designed to track live chess broad
     3. Click "Load temporary Add-on"
     4. Select the `manifest.json` file from the project folder
 
----
 ## Update notes:
 
 ### Version 1.1
@@ -39,7 +38,6 @@ A professional, lightweight browser extension designed to track live chess broad
 - Added smart round selection 
     * The extension will automatically show ongoing rounds for the selected tournament.
     * If there's no rounds underway, it will show the NEXT round of the tournament.
----
 
 ## License
 
