@@ -9,9 +9,10 @@ A professional, lightweight browser extension designed to track live chess broad
 - **Smart Evaluation Bar:** High-contrast visual evaluation bar (White/Black) with cloud-eval integration.
 - **Lichess Dark Theme:** A clean UI inspired by the Lichess color palette
 - **Persistent Selection:** Remembers your last selected tournament even after closing the browser or popup.
+- **Smart round Selection:** Always loads the current round of the tournament first.
 - **Live Result Badges:** Displays game scores (1-0, 0-1, ½-½) directly in the player list once games conclude.
 
-**_IMPORTANT NOTE:_** This extension relies on the Lichess Broadcast API. It can, at this time, only show rounds set as _ongoing_ by Lichess. As such, you currently _cannot_ view previous rounds or rounds that are still not loaded.
+**_IMPORTANT NOTE:_** This extension relies on the Lichess Broadcast API. Sometimes, limitations on the API can result on player clock information or computer eval to be missing or inaccurate.
 
 ## Installation
 
@@ -22,9 +23,23 @@ A professional, lightweight browser extension designed to track live chess broad
 4. Click **Load unpacked** and select the project folder.
 
 ### For Firefox
-1. Open Firefox and navigate to `about:debugging#/runtime/this-firefox`.
-2. Click **Load Temporary Add-on...**.
-3. Select the `manifest.json` file from the project folder.
+- LiCC is now available at [addons.mozilla.org!](https://addons.mozilla.org/pt-BR/firefox/addon/licc-live-chess-companion/)!
+- If you want to install manually, follow these steps:
+    1. Download or clone this repository
+    2. Navigate to `about:debugging#/runtime/this-firefox`
+    3. Click "Load temporary Add-on"
+    4. Select the `manifest.json` file from the project folder
+
+---
+## Update notes:
+
+### Version 1.1
+- Added round select button
+    * Now users can see past rounds from the selected tournament as well as future round pairings (when available).
+- Added smart round selection 
+    * The extension will automatically show ongoing rounds for the selected tournament.
+    * If there's no rounds underway, it will show the NEXT round of the tournament.
+---
 
 ## License
 
