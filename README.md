@@ -5,14 +5,15 @@ A professional, lightweight browser extension designed to track live chess broad
 
 ## Features
 
-- **Live Broadcast Tracking:** Fetches top active broadcasts directly from the Lichess API.
-- **Smart Evaluation Bar:** High-contrast visual evaluation bar (White/Black) with cloud-eval integration.
-- **Lichess Dark Theme:** A clean UI inspired by the Lichess color palette
-- **Persistent Selection:** Remembers your last selected tournament even after closing the browser or popup.
+- **Live Broadcast Tracking:** Takes the top tournaments directly from the Lichess API
 - **Smart round Selection:** Always loads the current round of the tournament first.
+- **Eval Bar:** When available, fetch the position eval from the Lichess API and show it with an eval bar on the left. Also used for final results.
+- **Persistent Selection:** Remembers your last selected tournament even after closing the browser or popup.
+- **Click game for full analysis:** You can click the game cards on the popup to open a small tab with the full game analysis on Lichess.
+- **Lichess Dark Theme:** A clean UI inspired by the Lichess color palette
 - **Live Result Badges:** Displays game scores (1-0, 0-1, ½-½) directly in the player list once games conclude.
 
-**_IMPORTANT NOTE:_** This extension relies on the Lichess Broadcast API. Sometimes, limitations on the API can result on player clock information or computer eval to be missing or inaccurate.
+**_IMPORTANT NOTE:_** This extension relies heavily on the Lichess Broadcast API. Sometimes, limitations on the API can result on player clock information or computer eval to be missing or inaccurate.
 
 ## Installation
 
