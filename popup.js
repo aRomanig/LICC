@@ -33,6 +33,12 @@ function evalToPercent(score) {
     return 50 + (clamped / 5) * 50
 }
 
+function checkTurn(fen) {
+    const parsedString = fen.split(' ')
+    console.log(parsedString[1])
+    return parsedString[1]
+}
+
 function renderGames(games, tournament) {
     gamesList.innerHTML = ''
     if (!games || games.length === 0) {
@@ -69,11 +75,11 @@ function renderGames(games, tournament) {
             <div class="eval-bar"><div class="eval-fill"></div></div>
             <div class="game-info">
                 <div class="player-line">
-                    <span class="name">♔ ${black.name || "Black"}</span>
+                    <span class="name blackName">♔ ${black.name || "Black"}</span>
                     <span class="clock-area">${isFinished ? `<span class="score">${blackResult}</span>` : parseTime(black.clock)}</span>
                 </div>
                 <div class="player-line">
-                    <span class="name">♚ ${white.name || "White"}</span>
+                    <span class="name whiteName">♚ ${white.name || "White"}</span>
                     <span class="clock-area">${isFinished ? `<span class="score">${whiteResult}</span>` : parseTime(white.clock)}</span>
                 </div>
             </div>
@@ -81,6 +87,8 @@ function renderGames(games, tournament) {
         `
         const fill = card.querySelector('.eval-fill')
         const evalText = card.querySelector('.eval-text')
+        const blackName = card.querySelector('.blackName')
+        const whiteName = card.querySelector('.whiteName')
         
         if (isFinished) {
             if (whiteResult === '1') fill.style.height = '100%'
@@ -95,6 +103,12 @@ function renderGames(games, tournament) {
                     evalText.textContent = score > 0 ? `+${score.toFixed(1)}` : score.toFixed(1)
                 }
             })
+            let turn = checkTurn(game.fen)
+            if (turn == 'w') {
+                whiteName.append(' <-')
+            } else if (turn == 'b') {
+                blackName.append(' <-')
+            }
         }
 
         card.addEventListener('click', () => {
