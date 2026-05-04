@@ -18,7 +18,7 @@ A professional, lightweight browser extension designed to track live chess broad
 ## Installation
 
 ### For Chrome / Edge
-- LiCC is not available at the [Chrome Web Store!](https://chromewebstore.google.com/detail/oebgapikpbhcjodnoffbiigaljgadojg?utm_source=item-share-cb)
+- LiCC is now available at the [Chrome Web Store!](https://chromewebstore.google.com/detail/oebgapikpbhcjodnoffbiigaljgadojg?utm_source=item-share-cb)
 - For manual installation, follow these steps:
     1. Download or clone this repository
     2. Open Chrome and navigate to `chrome://extensions/` (or `edge://extensions`)
@@ -26,7 +26,7 @@ A professional, lightweight browser extension designed to track live chess broad
     4. Select **Load unpacked** and select the project folder.
 
 ### For Firefox
-- LiCC is now available at [addons.mozilla.org!](https://addons.mozilla.org/pt-BR/firefox/addon/licc-live-chess-companion/)!
+- LiCC is now available at [addons.mozilla.org!](https://addons.mozilla.org/pt-BR/firefox/addon/licc-live-chess-companion/)
 - For manual installation, follow these steps:
     1. Download or clone this repository
     2. Navigate to `about:debugging#/runtime/this-firefox`
