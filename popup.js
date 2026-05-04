@@ -176,7 +176,7 @@ async function renderRounds(tourId) {
         roundSelect.selectedIndex = ongoingIndex
     } else {
         const notFinishedIndex = rounds.findIndex(r => r.finished !== true)
-        roundSelect.selectedIndex = notFinishedIndex !== -1 ? notFinishedIndex - 1 : 0
+        roundSelect.selectedIndex = notFinishedIndex !== 0 ? notFinishedIndex - 1 : 0
     }
 }
 
