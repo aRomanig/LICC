@@ -40,6 +40,12 @@ A professional, lightweight browser extension designed to track live chess broad
     * The extension will automatically show ongoing rounds for the selected tournament.
     * If there's no rounds underway, it will show the NEXT round of the tournament.
 
+### Version 1.2
+- Added current turn indicator
+    * Now there's an arrow indicating whose turn it is in ongoing games!
+- Fixed smart round selection
+    * Now, when no rounds are underway, the extension automatically shows the LAST finished round of the tournament instead of the next.
+
 ## License
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
