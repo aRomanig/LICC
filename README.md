@@ -43,8 +43,9 @@ A professional, lightweight browser extension designed to track live chess broad
 ### Version 1.2
 - Added current turn indicator
     * Now there's an arrow indicating whose turn it is in ongoing games!
+#### Version 1.2.1
 - Fixed smart round selection
-    * Now, when no rounds are underway, the extension automatically shows the LAST finished round of the tournament instead of the next.
+    * Now, when tehre are no rounds underway in a tournament, the extension automatically selects the last FINISHED round instead of the NEXt round.
 
 ## License
 
