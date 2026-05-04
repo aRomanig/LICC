@@ -18,14 +18,16 @@ A professional, lightweight browser extension designed to track live chess broad
 ## Installation
 
 ### For Chrome / Edge
-1. Download or clone this repository.
-2. Open Chrome and navigate to `chrome://extensions/`.
-3. Enable **Developer mode** in the top right corner.
-4. Click **Load unpacked** and select the project folder.
+- LiCC is not available at the [Chrome Web Store!](https://chromewebstore.google.com/detail/oebgapikpbhcjodnoffbiigaljgadojg?utm_source=item-share-cb)
+- For manual installation, follow these steps:
+    1. Download or clone this repository
+    2. Open Chrome and navigate to `chrome://extensions/` (or `edge://extensions`)
+    3. Enable **Developer mode** on the top right corner
+    4. Select **Load unpacked** and select the project folder.
 
 ### For Firefox
 - LiCC is now available at [addons.mozilla.org!](https://addons.mozilla.org/pt-BR/firefox/addon/licc-live-chess-companion/)!
-- If you want to install manually, follow these steps:
+- For manual installation, follow these steps:
     1. Download or clone this repository
     2. Navigate to `about:debugging#/runtime/this-firefox`
     3. Click "Load temporary Add-on"
@@ -43,9 +45,11 @@ A professional, lightweight browser extension designed to track live chess broad
 ### Version 1.2
 - Added current turn indicator
     * Now there's an arrow indicating whose turn it is in ongoing games!
-#### Version 1.2.1
+##### Version 1.2.1
 - Fixed smart round selection
     * Now, when tehre are no rounds underway in a tournament, the extension automatically selects the last FINISHED round instead of the NEXt round.
+##### Version 1.2.2
+- Small bug fixes
 
 ## License
 
